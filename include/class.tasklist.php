@@ -61,7 +61,7 @@ class tasklist {
         global $conn;
 
         $updStmt = $conn->prepare("UPDATE tasklist SET `name` = ?, `desc` = ?, `milestone` = ? WHERE ID = ?");
-        $upd = $updStmt->execute(array($name, $desc, §milestone, $id));
+        $upd = $updStmt->execute(array($name, $desc, Â§milestone, $id));
         if ($upd) {
             $proj = $conn->query("SELECT project FROM tasklist WHERE ID = $id")->fetch();
             $proj = $proj[0];
@@ -190,7 +190,7 @@ class tasklist {
         $project = (int) $project;
         $status = (int) $status;
 
-        $sel = $conn->query("SELECT * FROM tasklist WHERE project = $project AND status=$status");
+        $sel = $conn->query("SELECT * FROM tasklist WHERE project = $project AND status=$status ORDER BY `start` ASC ");
         $tasklists = array();
 
         $taskobj = new task();
